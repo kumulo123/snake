@@ -27,7 +27,7 @@ body{
     flex-direction: column;
     height: 200px;
     width: 500px;
-    background-color: lightblue;
+    background-color: lightgreen;
     position: absolute;
     top: 300px;
 }
@@ -56,5 +56,5 @@ body{
 }
 
 .newgamebtn:hover{
-    background-color: lightskyblue;
+    background-color: limegreen;
 }

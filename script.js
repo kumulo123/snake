@@ -130,7 +130,8 @@ function eraseSnake() {
 
 function drawSnake() {
     for (var i = 0; i < snake.length; i++) {
-        snake_canvas.fillStyle = 'lightgreen';
+        //snake_canvas.fillStyle = 'lightgreen';
+        snake_canvas.fillStyle = "rgb(20,"+getRandomInt(200)+",20)";
         snake_canvas.fillRect(snake[i][0] * 50, snake[i][1] * 50, 50, 50);
     }
 }
