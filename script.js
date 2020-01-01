@@ -2,11 +2,13 @@ var gameCanvas = document.getElementById("gameCanvas");
 var ctx = gameCanvas.getContext("2d");
 var start_snake = [[3, 3], [4, 3], [5, 3]];
 var snake = [[3, 3], [4, 3], [5, 3]];
+var snake_color_arr = ["rgb(20,255,20)","rgb(20,255,20)","rgb(20,255,20)"];
 var food_pos = "";
 var snake_canvas = gameCanvas.getContext('2d');
 var food_canvas = gameCanvas.getContext('2d');
 var waiting_dir = "right";
 var dir = "right";
+var green = 255;
 var showarray = document.querySelector("#showarray");
 var container = document.querySelector("#container");
 var foodOnMap = false;
@@ -72,24 +74,33 @@ function changeDir(e) {
 }
 
 function snakeGrows() {
+    green = (green-5+255)%255;
     snake.unshift(snake[0].slice(0));
+    snake_color_arr.push("rgb(20,"+green+",20)");
 }
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+function isInSnakePos(x, y){
+    for(var i = 0; i<snake.length; i++){
+        if(x == snake[i][0] && y ==snake[i][1]){
+            return true;
+        }
+    }
+    return false;
+}
+
 function putFood() {
     if (foodOnMap == false) {
-        food_pos = "";
         food_pos = x + "" + y;
         var x = getRandomInt(16);
         var y = getRandomInt(16);
-        for (var i = 0; i < snake.length; i++) {
-            if (snake[i].join('') == food_pos) {
+        while(isInSnakePos(x,y)){
+                console.log("same");
                 x = getRandomInt(16);
                 y = getRandomInt(16);
-            }
         }
         food_pos = x + "" + y;
         food_canvas.fillStyle = 'pink';
@@ -129,9 +140,13 @@ function eraseSnake() {
 }
 
 function drawSnake() {
-    for (var i = 0; i < snake.length; i++) {
+    /*for (var i = 0; i < snake.length; i++) {
         //snake_canvas.fillStyle = 'lightgreen';
         snake_canvas.fillStyle = "rgb(20,"+getRandomInt(200)+",20)";
+        snake_canvas.fillRect(snake[i][0] * 50, snake[i][1] * 50, 50, 50);
+    }*/
+    for(var i = 0; i<snake.length; i++){
+        snake_canvas.fillStyle = snake_color_arr[i];
         snake_canvas.fillRect(snake[i][0] * 50, snake[i][1] * 50, 50, 50);
     }
 }
